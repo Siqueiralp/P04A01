@@ -1,0 +1,411 @@
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 6
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"stm32f4xx_it.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.NMI_Handler,"ax",%progbits
+  20              		.align	1
+  21              		.global	NMI_Handler
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	NMI_Handler:
+  27              	.LFB130:
+  28              		.file 1 "Core/Src/stm32f4xx_it.c"
+   1:Core/Src/stm32f4xx_it.c **** /* USER CODE BEGIN Header */
+   2:Core/Src/stm32f4xx_it.c **** /**
+   3:Core/Src/stm32f4xx_it.c ****   ******************************************************************************
+   4:Core/Src/stm32f4xx_it.c ****   * @file    stm32f4xx_it.c
+   5:Core/Src/stm32f4xx_it.c ****   * @brief   Interrupt Service Routines.
+   6:Core/Src/stm32f4xx_it.c ****   ******************************************************************************
+   7:Core/Src/stm32f4xx_it.c ****   * @attention
+   8:Core/Src/stm32f4xx_it.c ****   *
+   9:Core/Src/stm32f4xx_it.c ****   * Copyright (c) 2022 STMicroelectronics.
+  10:Core/Src/stm32f4xx_it.c ****   * All rights reserved.
+  11:Core/Src/stm32f4xx_it.c ****   *
+  12:Core/Src/stm32f4xx_it.c ****   * This software is licensed under terms that can be found in the LICENSE file
+  13:Core/Src/stm32f4xx_it.c ****   * in the root directory of this software component.
+  14:Core/Src/stm32f4xx_it.c ****   * If no LICENSE file comes with this software, it is provided AS-IS.
+  15:Core/Src/stm32f4xx_it.c ****   *
+  16:Core/Src/stm32f4xx_it.c ****   ******************************************************************************
+  17:Core/Src/stm32f4xx_it.c ****   */
+  18:Core/Src/stm32f4xx_it.c **** /* USER CODE END Header */
+  19:Core/Src/stm32f4xx_it.c **** 
+  20:Core/Src/stm32f4xx_it.c **** /* Includes ------------------------------------------------------------------*/
+  21:Core/Src/stm32f4xx_it.c **** #include "main.h"
+  22:Core/Src/stm32f4xx_it.c **** #include "stm32f4xx_it.h"
+  23:Core/Src/stm32f4xx_it.c **** 
+  24:Core/Src/stm32f4xx_it.c **** void NMI_Handler(void)
+  25:Core/Src/stm32f4xx_it.c **** {
+  29              		.loc 1 25 1
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 1, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s 			page 2
+
+
+  34 0000 80B4     		push	{r7}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 4
+  37              		.cfi_offset 7, -4
+  38 0002 00AF     		add	r7, sp, #0
+  39              	.LCFI1:
+  40              		.cfi_def_cfa_register 7
+  41              	.L2:
+  26:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
+  27:Core/Src/stm32f4xx_it.c **** 
+  28:Core/Src/stm32f4xx_it.c ****   /* USER CODE END NonMaskableInt_IRQn 0 */
+  29:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
+  30:Core/Src/stm32f4xx_it.c ****   while (1)
+  42              		.loc 1 30 9 discriminator 1
+  43 0004 FEE7     		b	.L2
+  44              		.cfi_endproc
+  45              	.LFE130:
+  47              		.section	.text.HardFault_Handler,"ax",%progbits
+  48              		.align	1
+  49              		.global	HardFault_Handler
+  50              		.syntax unified
+  51              		.thumb
+  52              		.thumb_func
+  54              	HardFault_Handler:
+  55              	.LFB131:
+  31:Core/Src/stm32f4xx_it.c ****   {
+  32:Core/Src/stm32f4xx_it.c ****   }
+  33:Core/Src/stm32f4xx_it.c ****   /* USER CODE END NonMaskableInt_IRQn 1 */
+  34:Core/Src/stm32f4xx_it.c **** }
+  35:Core/Src/stm32f4xx_it.c **** 
+  36:Core/Src/stm32f4xx_it.c **** /**
+  37:Core/Src/stm32f4xx_it.c ****   * @brief This function handles Hard fault interrupt.
+  38:Core/Src/stm32f4xx_it.c ****   */
+  39:Core/Src/stm32f4xx_it.c **** void HardFault_Handler(void)
+  40:Core/Src/stm32f4xx_it.c **** {
+  56              		.loc 1 40 1
+  57              		.cfi_startproc
+  58              		@ args = 0, pretend = 0, frame = 0
+  59              		@ frame_needed = 1, uses_anonymous_args = 0
+  60              		@ link register save eliminated.
+  61 0000 80B4     		push	{r7}
+  62              	.LCFI2:
+  63              		.cfi_def_cfa_offset 4
+  64              		.cfi_offset 7, -4
+  65 0002 00AF     		add	r7, sp, #0
+  66              	.LCFI3:
+  67              		.cfi_def_cfa_register 7
+  68              	.L4:
+  41:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN HardFault_IRQn 0 */
+  42:Core/Src/stm32f4xx_it.c **** 
+  43:Core/Src/stm32f4xx_it.c ****   /* USER CODE END HardFault_IRQn 0 */
+  44:Core/Src/stm32f4xx_it.c ****   while (1)
+  69              		.loc 1 44 9 discriminator 1
+  70 0004 FEE7     		b	.L4
+  71              		.cfi_endproc
+  72              	.LFE131:
+  74              		.section	.text.MemManage_Handler,"ax",%progbits
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s 			page 3
+
+
+  75              		.align	1
+  76              		.global	MemManage_Handler
+  77              		.syntax unified
+  78              		.thumb
+  79              		.thumb_func
+  81              	MemManage_Handler:
+  82              	.LFB132:
+  45:Core/Src/stm32f4xx_it.c ****   {
+  46:Core/Src/stm32f4xx_it.c ****     /* USER CODE BEGIN W1_HardFault_IRQn 0 */
+  47:Core/Src/stm32f4xx_it.c ****     /* USER CODE END W1_HardFault_IRQn 0 */
+  48:Core/Src/stm32f4xx_it.c ****   }
+  49:Core/Src/stm32f4xx_it.c **** }
+  50:Core/Src/stm32f4xx_it.c **** 
+  51:Core/Src/stm32f4xx_it.c **** void MemManage_Handler(void)
+  52:Core/Src/stm32f4xx_it.c **** {
+  83              		.loc 1 52 1
+  84              		.cfi_startproc
+  85              		@ args = 0, pretend = 0, frame = 0
+  86              		@ frame_needed = 1, uses_anonymous_args = 0
+  87              		@ link register save eliminated.
+  88 0000 80B4     		push	{r7}
+  89              	.LCFI4:
+  90              		.cfi_def_cfa_offset 4
+  91              		.cfi_offset 7, -4
+  92 0002 00AF     		add	r7, sp, #0
+  93              	.LCFI5:
+  94              		.cfi_def_cfa_register 7
+  95              	.L6:
+  53:Core/Src/stm32f4xx_it.c ****   while (1)
+  96              		.loc 1 53 9 discriminator 1
+  97 0004 FEE7     		b	.L6
+  98              		.cfi_endproc
+  99              	.LFE132:
+ 101              		.section	.text.BusFault_Handler,"ax",%progbits
+ 102              		.align	1
+ 103              		.global	BusFault_Handler
+ 104              		.syntax unified
+ 105              		.thumb
+ 106              		.thumb_func
+ 108              	BusFault_Handler:
+ 109              	.LFB133:
+  54:Core/Src/stm32f4xx_it.c ****   {
+  55:Core/Src/stm32f4xx_it.c ****   }
+  56:Core/Src/stm32f4xx_it.c **** }
+  57:Core/Src/stm32f4xx_it.c **** 
+  58:Core/Src/stm32f4xx_it.c **** /**
+  59:Core/Src/stm32f4xx_it.c ****   * @brief This function handles Pre-fetch fault, memory access fault.
+  60:Core/Src/stm32f4xx_it.c ****   */
+  61:Core/Src/stm32f4xx_it.c **** void BusFault_Handler(void)
+  62:Core/Src/stm32f4xx_it.c **** {
+ 110              		.loc 1 62 1
+ 111              		.cfi_startproc
+ 112              		@ args = 0, pretend = 0, frame = 0
+ 113              		@ frame_needed = 1, uses_anonymous_args = 0
+ 114              		@ link register save eliminated.
+ 115 0000 80B4     		push	{r7}
+ 116              	.LCFI6:
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s 			page 4
+
+
+ 117              		.cfi_def_cfa_offset 4
+ 118              		.cfi_offset 7, -4
+ 119 0002 00AF     		add	r7, sp, #0
+ 120              	.LCFI7:
+ 121              		.cfi_def_cfa_register 7
+ 122              	.L8:
+  63:Core/Src/stm32f4xx_it.c ****   while (1)
+ 123              		.loc 1 63 9 discriminator 1
+ 124 0004 FEE7     		b	.L8
+ 125              		.cfi_endproc
+ 126              	.LFE133:
+ 128              		.section	.text.UsageFault_Handler,"ax",%progbits
+ 129              		.align	1
+ 130              		.global	UsageFault_Handler
+ 131              		.syntax unified
+ 132              		.thumb
+ 133              		.thumb_func
+ 135              	UsageFault_Handler:
+ 136              	.LFB134:
+  64:Core/Src/stm32f4xx_it.c ****   {
+  65:Core/Src/stm32f4xx_it.c **** 
+  66:Core/Src/stm32f4xx_it.c ****   }
+  67:Core/Src/stm32f4xx_it.c **** }
+  68:Core/Src/stm32f4xx_it.c **** void UsageFault_Handler(void)
+  69:Core/Src/stm32f4xx_it.c **** {
+ 137              		.loc 1 69 1
+ 138              		.cfi_startproc
+ 139              		@ args = 0, pretend = 0, frame = 0
+ 140              		@ frame_needed = 1, uses_anonymous_args = 0
+ 141              		@ link register save eliminated.
+ 142 0000 80B4     		push	{r7}
+ 143              	.LCFI8:
+ 144              		.cfi_def_cfa_offset 4
+ 145              		.cfi_offset 7, -4
+ 146 0002 00AF     		add	r7, sp, #0
+ 147              	.LCFI9:
+ 148              		.cfi_def_cfa_register 7
+ 149              	.L10:
+  70:Core/Src/stm32f4xx_it.c ****   while (1)
+ 150              		.loc 1 70 9 discriminator 1
+ 151 0004 FEE7     		b	.L10
+ 152              		.cfi_endproc
+ 153              	.LFE134:
+ 155              		.section	.text.SVC_Handler,"ax",%progbits
+ 156              		.align	1
+ 157              		.global	SVC_Handler
+ 158              		.syntax unified
+ 159              		.thumb
+ 160              		.thumb_func
+ 162              	SVC_Handler:
+ 163              	.LFB135:
+  71:Core/Src/stm32f4xx_it.c ****   {
+  72:Core/Src/stm32f4xx_it.c **** 
+  73:Core/Src/stm32f4xx_it.c ****   }
+  74:Core/Src/stm32f4xx_it.c **** }
+  75:Core/Src/stm32f4xx_it.c **** void SVC_Handler(void)
+  76:Core/Src/stm32f4xx_it.c **** {
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s 			page 5
+
+
+ 164              		.loc 1 76 1
+ 165              		.cfi_startproc
+ 166              		@ args = 0, pretend = 0, frame = 0
+ 167              		@ frame_needed = 1, uses_anonymous_args = 0
+ 168              		@ link register save eliminated.
+ 169 0000 80B4     		push	{r7}
+ 170              	.LCFI10:
+ 171              		.cfi_def_cfa_offset 4
+ 172              		.cfi_offset 7, -4
+ 173 0002 00AF     		add	r7, sp, #0
+ 174              	.LCFI11:
+ 175              		.cfi_def_cfa_register 7
+  77:Core/Src/stm32f4xx_it.c **** }
+ 176              		.loc 1 77 1
+ 177 0004 00BF     		nop
+ 178 0006 BD46     		mov	sp, r7
+ 179              	.LCFI12:
+ 180              		.cfi_def_cfa_register 13
+ 181              		@ sp needed
+ 182 0008 5DF8047B 		ldr	r7, [sp], #4
+ 183              	.LCFI13:
+ 184              		.cfi_restore 7
+ 185              		.cfi_def_cfa_offset 0
+ 186 000c 7047     		bx	lr
+ 187              		.cfi_endproc
+ 188              	.LFE135:
+ 190              		.section	.text.DebugMon_Handler,"ax",%progbits
+ 191              		.align	1
+ 192              		.global	DebugMon_Handler
+ 193              		.syntax unified
+ 194              		.thumb
+ 195              		.thumb_func
+ 197              	DebugMon_Handler:
+ 198              	.LFB136:
+  78:Core/Src/stm32f4xx_it.c **** 
+  79:Core/Src/stm32f4xx_it.c **** void DebugMon_Handler(void)
+  80:Core/Src/stm32f4xx_it.c **** {
+ 199              		.loc 1 80 1
+ 200              		.cfi_startproc
+ 201              		@ args = 0, pretend = 0, frame = 0
+ 202              		@ frame_needed = 1, uses_anonymous_args = 0
+ 203              		@ link register save eliminated.
+ 204 0000 80B4     		push	{r7}
+ 205              	.LCFI14:
+ 206              		.cfi_def_cfa_offset 4
+ 207              		.cfi_offset 7, -4
+ 208 0002 00AF     		add	r7, sp, #0
+ 209              	.LCFI15:
+ 210              		.cfi_def_cfa_register 7
+  81:Core/Src/stm32f4xx_it.c **** }
+ 211              		.loc 1 81 1
+ 212 0004 00BF     		nop
+ 213 0006 BD46     		mov	sp, r7
+ 214              	.LCFI16:
+ 215              		.cfi_def_cfa_register 13
+ 216              		@ sp needed
+ 217 0008 5DF8047B 		ldr	r7, [sp], #4
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s 			page 6
+
+
+ 218              	.LCFI17:
+ 219              		.cfi_restore 7
+ 220              		.cfi_def_cfa_offset 0
+ 221 000c 7047     		bx	lr
+ 222              		.cfi_endproc
+ 223              	.LFE136:
+ 225              		.section	.text.PendSV_Handler,"ax",%progbits
+ 226              		.align	1
+ 227              		.global	PendSV_Handler
+ 228              		.syntax unified
+ 229              		.thumb
+ 230              		.thumb_func
+ 232              	PendSV_Handler:
+ 233              	.LFB137:
+  82:Core/Src/stm32f4xx_it.c **** 
+  83:Core/Src/stm32f4xx_it.c **** void PendSV_Handler(void)
+  84:Core/Src/stm32f4xx_it.c **** {
+ 234              		.loc 1 84 1
+ 235              		.cfi_startproc
+ 236              		@ args = 0, pretend = 0, frame = 0
+ 237              		@ frame_needed = 1, uses_anonymous_args = 0
+ 238              		@ link register save eliminated.
+ 239 0000 80B4     		push	{r7}
+ 240              	.LCFI18:
+ 241              		.cfi_def_cfa_offset 4
+ 242              		.cfi_offset 7, -4
+ 243 0002 00AF     		add	r7, sp, #0
+ 244              	.LCFI19:
+ 245              		.cfi_def_cfa_register 7
+  85:Core/Src/stm32f4xx_it.c **** 
+  86:Core/Src/stm32f4xx_it.c **** }
+ 246              		.loc 1 86 1
+ 247 0004 00BF     		nop
+ 248 0006 BD46     		mov	sp, r7
+ 249              	.LCFI20:
+ 250              		.cfi_def_cfa_register 13
+ 251              		@ sp needed
+ 252 0008 5DF8047B 		ldr	r7, [sp], #4
+ 253              	.LCFI21:
+ 254              		.cfi_restore 7
+ 255              		.cfi_def_cfa_offset 0
+ 256 000c 7047     		bx	lr
+ 257              		.cfi_endproc
+ 258              	.LFE137:
+ 260              		.section	.text.SysTick_Handler,"ax",%progbits
+ 261              		.align	1
+ 262              		.global	SysTick_Handler
+ 263              		.syntax unified
+ 264              		.thumb
+ 265              		.thumb_func
+ 267              	SysTick_Handler:
+ 268              	.LFB138:
+  87:Core/Src/stm32f4xx_it.c **** 
+  88:Core/Src/stm32f4xx_it.c **** void SysTick_Handler(void)
+  89:Core/Src/stm32f4xx_it.c **** {
+ 269              		.loc 1 89 1
+ 270              		.cfi_startproc
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s 			page 7
+
+
+ 271              		@ args = 0, pretend = 0, frame = 0
+ 272              		@ frame_needed = 1, uses_anonymous_args = 0
+ 273 0000 80B5     		push	{r7, lr}
+ 274              	.LCFI22:
+ 275              		.cfi_def_cfa_offset 8
+ 276              		.cfi_offset 7, -8
+ 277              		.cfi_offset 14, -4
+ 278 0002 00AF     		add	r7, sp, #0
+ 279              	.LCFI23:
+ 280              		.cfi_def_cfa_register 7
+  90:Core/Src/stm32f4xx_it.c ****   HAL_IncTick();
+ 281              		.loc 1 90 3
+ 282 0004 FFF7FEFF 		bl	HAL_IncTick
+  91:Core/Src/stm32f4xx_it.c **** }
+ 283              		.loc 1 91 1
+ 284 0008 00BF     		nop
+ 285 000a 80BD     		pop	{r7, pc}
+ 286              		.cfi_endproc
+ 287              	.LFE138:
+ 289              		.text
+ 290              	.Letext0:
+ 291              		.file 2 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f4xx_it.c
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:20     .text.NMI_Handler:00000000 $t
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:26     .text.NMI_Handler:00000000 NMI_Handler
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:48     .text.HardFault_Handler:00000000 $t
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:54     .text.HardFault_Handler:00000000 HardFault_Handler
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:75     .text.MemManage_Handler:00000000 $t
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:81     .text.MemManage_Handler:00000000 MemManage_Handler
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:102    .text.BusFault_Handler:00000000 $t
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:108    .text.BusFault_Handler:00000000 BusFault_Handler
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:129    .text.UsageFault_Handler:00000000 $t
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:135    .text.UsageFault_Handler:00000000 UsageFault_Handler
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:156    .text.SVC_Handler:00000000 $t
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:162    .text.SVC_Handler:00000000 SVC_Handler
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:191    .text.DebugMon_Handler:00000000 $t
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:197    .text.DebugMon_Handler:00000000 DebugMon_Handler
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:226    .text.PendSV_Handler:00000000 $t
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:232    .text.PendSV_Handler:00000000 PendSV_Handler
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:261    .text.SysTick_Handler:00000000 $t
+C:\Users\stryk\AppData\Local\Temp\ccbrn1gl.s:267    .text.SysTick_Handler:00000000 SysTick_Handler
+
+UNDEFINED SYMBOLS
+HAL_IncTick

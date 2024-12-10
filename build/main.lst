@@ -1,0 +1,1052 @@
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 6
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	channel1_duty_cycle
+  20              		.section	.bss.channel1_duty_cycle,"aw",%nobits
+  21              		.align	2
+  24              	channel1_duty_cycle:
+  25 0000 00000000 		.space	4
+  26              		.global	channel2_duty_cycle
+  27              		.section	.data.channel2_duty_cycle,"aw"
+  28              		.align	2
+  31              	channel2_duty_cycle:
+  32 0000 00004842 		.word	1112014848
+  33              		.global	htim2
+  34              		.section	.bss.htim2,"aw",%nobits
+  35              		.align	2
+  38              	htim2:
+  39 0000 00000000 		.space	72
+  39      00000000 
+  39      00000000 
+  39      00000000 
+  39      00000000 
+  40              		.section	.text.main,"ax",%progbits
+  41              		.align	1
+  42              		.global	main
+  43              		.syntax unified
+  44              		.thumb
+  45              		.thumb_func
+  47              	main:
+  48              	.LFB130:
+  49              		.file 1 "Core/Src/main.c"
+   1:Core/Src/main.c **** #include "main.h"
+   2:Core/Src/main.c **** #include <stdbool.h>
+   3:Core/Src/main.c **** float channel1_duty_cycle = 0.0f;   // Duty cycle inicial para o canal 1 (0%)
+   4:Core/Src/main.c **** float channel2_duty_cycle = 50.0f; // Duty cycle inicial para o canal 2 (50%)
+   5:Core/Src/main.c **** 
+   6:Core/Src/main.c **** TIM_HandleTypeDef htim2;
+   7:Core/Src/main.c **** 
+   8:Core/Src/main.c **** void SystemClock_Config(void);
+   9:Core/Src/main.c **** static void MX_GPIO_Init(void);
+  10:Core/Src/main.c **** static void MX_TIM2_Init(void);
+  11:Core/Src/main.c **** 
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 2
+
+
+  12:Core/Src/main.c **** int main(void)
+  13:Core/Src/main.c **** {
+  50              		.loc 1 13 1
+  51              		.cfi_startproc
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54 0000 80B5     		push	{r7, lr}
+  55              	.LCFI0:
+  56              		.cfi_def_cfa_offset 8
+  57              		.cfi_offset 7, -8
+  58              		.cfi_offset 14, -4
+  59 0002 82B0     		sub	sp, sp, #8
+  60              	.LCFI1:
+  61              		.cfi_def_cfa_offset 16
+  62 0004 00AF     		add	r7, sp, #0
+  63              	.LCFI2:
+  64              		.cfi_def_cfa_register 7
+  14:Core/Src/main.c ****   HAL_Init();
+  65              		.loc 1 14 3
+  66 0006 FFF7FEFF 		bl	HAL_Init
+  15:Core/Src/main.c ****   SystemClock_Config();
+  67              		.loc 1 15 3
+  68 000a FFF7FEFF 		bl	SystemClock_Config
+  16:Core/Src/main.c ****   MX_GPIO_Init();
+  69              		.loc 1 16 3
+  70 000e FFF7FEFF 		bl	MX_GPIO_Init
+  17:Core/Src/main.c ****   MX_TIM2_Init();
+  71              		.loc 1 17 3
+  72 0012 FFF7FEFF 		bl	MX_TIM2_Init
+  18:Core/Src/main.c ****   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  73              		.loc 1 18 3
+  74 0016 0021     		movs	r1, #0
+  75 0018 5A48     		ldr	r0, .L12
+  76 001a FFF7FEFF 		bl	HAL_TIM_PWM_Start
+  19:Core/Src/main.c ****   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+  77              		.loc 1 19 3
+  78 001e 0421     		movs	r1, #4
+  79 0020 5848     		ldr	r0, .L12
+  80 0022 FFF7FEFF 		bl	HAL_TIM_PWM_Start
+  20:Core/Src/main.c **** 
+  21:Core/Src/main.c ****   uint32_t start_time = HAL_GetTick();
+  81              		.loc 1 21 25
+  82 0026 FFF7FEFF 		bl	HAL_GetTick
+  83 002a 7860     		str	r0, [r7, #4]
+  84              	.L9:
+  85              	.LBB4:
+  22:Core/Src/main.c **** 
+  23:Core/Src/main.c ****   while (1)
+  24:Core/Src/main.c ****   {
+  25:Core/Src/main.c ****     uint32_t elapsed_time = HAL_GetTick() - start_time;
+  86              		.loc 1 25 29
+  87 002c FFF7FEFF 		bl	HAL_GetTick
+  88 0030 0246     		mov	r2, r0
+  89              		.loc 1 25 14
+  90 0032 7B68     		ldr	r3, [r7, #4]
+  91 0034 D31A     		subs	r3, r2, r3
+  92 0036 3B60     		str	r3, [r7]
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 3
+
+
+  26:Core/Src/main.c **** 
+  27:Core/Src/main.c ****     if (elapsed_time <= 4000) // rampa de subida (4 seg)
+  93              		.loc 1 27 8
+  94 0038 3B68     		ldr	r3, [r7]
+  95 003a B3F57A6F 		cmp	r3, #4000
+  96 003e 10D8     		bhi	.L2
+  28:Core/Src/main.c ****     {
+  29:Core/Src/main.c ****         channel1_duty_cycle = (elapsed_time / 4000.0f) * 100.0f;
+  97              		.loc 1 29 45
+  98 0040 3B68     		ldr	r3, [r7]
+  99 0042 07EE903A 		vmov	s15, r3	@ int
+ 100 0046 B8EE677A 		vcvt.f32.u32	s14, s15
+ 101 004a DFED4F6A 		vldr.32	s13, .L12+4
+ 102 004e C7EE267A 		vdiv.f32	s15, s14, s13
+ 103              		.loc 1 29 56
+ 104 0052 9FED4E7A 		vldr.32	s14, .L12+8
+ 105 0056 67EE877A 		vmul.f32	s15, s15, s14
+ 106              		.loc 1 29 29
+ 107 005a 4D4B     		ldr	r3, .L12+12
+ 108 005c C3ED007A 		vstr.32	s15, [r3]
+ 109 0060 1EE0     		b	.L3
+ 110              	.L2:
+  30:Core/Src/main.c ****     }
+  31:Core/Src/main.c ****     else if (elapsed_time <= 6000) // rampa de descida (2 seg)
+ 111              		.loc 1 31 13
+ 112 0062 3B68     		ldr	r3, [r7]
+ 113 0064 41F27072 		movw	r2, #6000
+ 114 0068 9342     		cmp	r3, r2
+ 115 006a 16D8     		bhi	.L4
+  32:Core/Src/main.c ****     {
+  33:Core/Src/main.c ****         channel1_duty_cycle = 100.0f - ((elapsed_time - 4000) / 2000.0f) * 100.0f;
+ 116              		.loc 1 33 55
+ 117 006c 3B68     		ldr	r3, [r7]
+ 118 006e A3F57A63 		sub	r3, r3, #4000
+ 119              		.loc 1 33 63
+ 120 0072 07EE903A 		vmov	s15, r3	@ int
+ 121 0076 B8EE677A 		vcvt.f32.u32	s14, s15
+ 122 007a DFED466A 		vldr.32	s13, .L12+16
+ 123 007e C7EE267A 		vdiv.f32	s15, s14, s13
+ 124              		.loc 1 33 74
+ 125 0082 9FED427A 		vldr.32	s14, .L12+8
+ 126 0086 67EE877A 		vmul.f32	s15, s15, s14
+ 127              		.loc 1 33 38
+ 128 008a 9FED407A 		vldr.32	s14, .L12+8
+ 129 008e 77EE677A 		vsub.f32	s15, s14, s15
+ 130              		.loc 1 33 29
+ 131 0092 3F4B     		ldr	r3, .L12+12
+ 132 0094 C3ED007A 		vstr.32	s15, [r3]
+ 133 0098 02E0     		b	.L3
+ 134              	.L4:
+  34:Core/Src/main.c ****     }
+  35:Core/Src/main.c ****     else
+  36:Core/Src/main.c ****     {
+  37:Core/Src/main.c ****         start_time = HAL_GetTick(); // Reset time after 6 seconds
+ 135              		.loc 1 37 22
+ 136 009a FFF7FEFF 		bl	HAL_GetTick
+ 137 009e 7860     		str	r0, [r7, #4]
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 4
+
+
+ 138              	.L3:
+  38:Core/Src/main.c ****     }
+  39:Core/Src/main.c ****     __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, (uint32_t)((channel1_duty_cycle / 100.0f) * __HAL_
+ 139              		.loc 1 39 5
+ 140 00a0 3B4B     		ldr	r3, .L12+12
+ 141 00a2 D3ED007A 		vldr.32	s15, [r3]
+ 142 00a6 DFED396A 		vldr.32	s13, .L12+8
+ 143 00aa 87EEA67A 		vdiv.f32	s14, s15, s13
+ 144 00ae 354B     		ldr	r3, .L12
+ 145 00b0 1B68     		ldr	r3, [r3]
+ 146 00b2 DB6A     		ldr	r3, [r3, #44]
+ 147 00b4 07EE903A 		vmov	s15, r3	@ int
+ 148 00b8 F8EE677A 		vcvt.f32.u32	s15, s15
+ 149 00bc 67EE277A 		vmul.f32	s15, s14, s15
+ 150 00c0 304B     		ldr	r3, .L12
+ 151 00c2 1B68     		ldr	r3, [r3]
+ 152 00c4 FCEEE77A 		vcvt.u32.f32	s15, s15
+ 153 00c8 17EE902A 		vmov	r2, s15	@ int
+ 154 00cc 5A63     		str	r2, [r3, #52]
+ 155              	.LBB5:
+  40:Core/Src/main.c **** 
+  41:Core/Src/main.c ****     // Botões de controle do canal 2
+  42:Core/Src/main.c ****      if (button_release(GPIOB, GPIO_PIN_12,SET))
+ 156              		.loc 1 42 10
+ 157 00ce 0122     		movs	r2, #1
+ 158 00d0 4FF48051 		mov	r1, #4096
+ 159 00d4 3048     		ldr	r0, .L12+20
+ 160 00d6 FFF7FEFF 		bl	button_release
+ 161 00da 0346     		mov	r3, r0
+ 162              		.loc 1 42 9
+ 163 00dc 002B     		cmp	r3, #0
+ 164 00de 16D0     		beq	.L5
+  43:Core/Src/main.c ****     {
+  44:Core/Src/main.c ****             channel2_duty_cycle += 12.5f;
+ 165              		.loc 1 44 33
+ 166 00e0 2E4B     		ldr	r3, .L12+24
+ 167 00e2 D3ED007A 		vldr.32	s15, [r3]
+ 168 00e6 B2EE097A 		vmov.f32	s14, #1.25e+1
+ 169 00ea 77EE877A 		vadd.f32	s15, s15, s14
+ 170 00ee 2B4B     		ldr	r3, .L12+24
+ 171 00f0 C3ED007A 		vstr.32	s15, [r3]
+  45:Core/Src/main.c ****             if (channel2_duty_cycle > 100.0f)
+ 172              		.loc 1 45 37
+ 173 00f4 294B     		ldr	r3, .L12+24
+ 174 00f6 D3ED007A 		vldr.32	s15, [r3]
+ 175              		.loc 1 45 16
+ 176 00fa 9FED247A 		vldr.32	s14, .L12+8
+ 177 00fe F4EEC77A 		vcmpe.f32	s15, s14
+ 178 0102 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 179 0106 02DD     		ble	.L5
+  46:Core/Src/main.c ****                 channel2_duty_cycle = 100.0f; // Limita a 100%
+ 180              		.loc 1 46 37
+ 181 0108 244B     		ldr	r3, .L12+24
+ 182 010a 254A     		ldr	r2, .L12+28
+ 183 010c 1A60     		str	r2, [r3]	@ float
+ 184              	.L5:
+ 185              	.LBE5:
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 5
+
+
+ 186              	.LBB6:
+  47:Core/Src/main.c ****     }
+  48:Core/Src/main.c **** 
+  49:Core/Src/main.c ****      if (button_release(GPIOB, GPIO_PIN_13,SET))
+ 187              		.loc 1 49 10
+ 188 010e 0122     		movs	r2, #1
+ 189 0110 4FF40051 		mov	r1, #8192
+ 190 0114 2048     		ldr	r0, .L12+20
+ 191 0116 FFF7FEFF 		bl	button_release
+ 192 011a 0346     		mov	r3, r0
+ 193              		.loc 1 49 9
+ 194 011c 002B     		cmp	r3, #0
+ 195 011e 15D0     		beq	.L7
+  50:Core/Src/main.c ****     {
+  51:Core/Src/main.c ****             channel2_duty_cycle -= 12.5f;
+ 196              		.loc 1 51 33
+ 197 0120 1E4B     		ldr	r3, .L12+24
+ 198 0122 D3ED007A 		vldr.32	s15, [r3]
+ 199 0126 B2EE097A 		vmov.f32	s14, #1.25e+1
+ 200 012a 77EEC77A 		vsub.f32	s15, s15, s14
+ 201 012e 1B4B     		ldr	r3, .L12+24
+ 202 0130 C3ED007A 		vstr.32	s15, [r3]
+  52:Core/Src/main.c ****             if (channel2_duty_cycle < 0.0f)
+ 203              		.loc 1 52 37
+ 204 0134 194B     		ldr	r3, .L12+24
+ 205 0136 D3ED007A 		vldr.32	s15, [r3]
+ 206              		.loc 1 52 16
+ 207 013a F5EEC07A 		vcmpe.f32	s15, #0
+ 208 013e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 209 0142 03D5     		bpl	.L7
+  53:Core/Src/main.c ****                 channel2_duty_cycle = 0.0f; // Limit to 0%
+ 210              		.loc 1 53 37
+ 211 0144 154B     		ldr	r3, .L12+24
+ 212 0146 4FF00002 		mov	r2, #0
+ 213 014a 1A60     		str	r2, [r3]	@ float
+ 214              	.L7:
+ 215              	.LBE6:
+  54:Core/Src/main.c ****     }
+  55:Core/Src/main.c **** 
+  56:Core/Src/main.c ****     __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, (uint32_t)((channel2_duty_cycle / 100.0f) * __HAL_
+ 216              		.loc 1 56 5
+ 217 014c 134B     		ldr	r3, .L12+24
+ 218 014e D3ED007A 		vldr.32	s15, [r3]
+ 219 0152 DFED0E6A 		vldr.32	s13, .L12+8
+ 220 0156 87EEA67A 		vdiv.f32	s14, s15, s13
+ 221 015a 0A4B     		ldr	r3, .L12
+ 222 015c 1B68     		ldr	r3, [r3]
+ 223 015e DB6A     		ldr	r3, [r3, #44]
+ 224 0160 07EE903A 		vmov	s15, r3	@ int
+ 225 0164 F8EE677A 		vcvt.f32.u32	s15, s15
+ 226 0168 67EE277A 		vmul.f32	s15, s14, s15
+ 227 016c 054B     		ldr	r3, .L12
+ 228 016e 1B68     		ldr	r3, [r3]
+ 229 0170 FCEEE77A 		vcvt.u32.f32	s15, s15
+ 230 0174 17EE902A 		vmov	r2, s15	@ int
+ 231 0178 9A63     		str	r2, [r3, #56]
+  57:Core/Src/main.c **** 
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 6
+
+
+  58:Core/Src/main.c ****     HAL_Delay(1);
+ 232              		.loc 1 58 5
+ 233 017a 0120     		movs	r0, #1
+ 234 017c FFF7FEFF 		bl	HAL_Delay
+ 235              	.LBE4:
+  24:Core/Src/main.c ****     uint32_t elapsed_time = HAL_GetTick() - start_time;
+ 236              		.loc 1 24 3
+ 237 0180 54E7     		b	.L9
+ 238              	.L13:
+ 239 0182 00BF     		.align	2
+ 240              	.L12:
+ 241 0184 00000000 		.word	htim2
+ 242 0188 00007A45 		.word	1165623296
+ 243 018c 0000C842 		.word	1120403456
+ 244 0190 00000000 		.word	channel1_duty_cycle
+ 245 0194 0000FA44 		.word	1157234688
+ 246 0198 00040240 		.word	1073873920
+ 247 019c 00000000 		.word	channel2_duty_cycle
+ 248 01a0 0000C842 		.word	1120403456
+ 249              		.cfi_endproc
+ 250              	.LFE130:
+ 252              		.section	.text.SystemClock_Config,"ax",%progbits
+ 253              		.align	1
+ 254              		.global	SystemClock_Config
+ 255              		.syntax unified
+ 256              		.thumb
+ 257              		.thumb_func
+ 259              	SystemClock_Config:
+ 260              	.LFB131:
+  59:Core/Src/main.c **** }
+  60:Core/Src/main.c **** }
+  61:Core/Src/main.c **** 
+  62:Core/Src/main.c **** void SystemClock_Config(void)
+  63:Core/Src/main.c **** {
+ 261              		.loc 1 63 1
+ 262              		.cfi_startproc
+ 263              		@ args = 0, pretend = 0, frame = 80
+ 264              		@ frame_needed = 1, uses_anonymous_args = 0
+ 265 0000 80B5     		push	{r7, lr}
+ 266              	.LCFI3:
+ 267              		.cfi_def_cfa_offset 8
+ 268              		.cfi_offset 7, -8
+ 269              		.cfi_offset 14, -4
+ 270 0002 94B0     		sub	sp, sp, #80
+ 271              	.LCFI4:
+ 272              		.cfi_def_cfa_offset 88
+ 273 0004 00AF     		add	r7, sp, #0
+ 274              	.LCFI5:
+ 275              		.cfi_def_cfa_register 7
+  64:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+ 276              		.loc 1 64 22
+ 277 0006 07F12003 		add	r3, r7, #32
+ 278 000a 3022     		movs	r2, #48
+ 279 000c 0021     		movs	r1, #0
+ 280 000e 1846     		mov	r0, r3
+ 281 0010 FFF7FEFF 		bl	memset
+  65:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 7
+
+
+ 282              		.loc 1 65 22
+ 283 0014 07F10C03 		add	r3, r7, #12
+ 284 0018 0022     		movs	r2, #0
+ 285 001a 1A60     		str	r2, [r3]
+ 286 001c 5A60     		str	r2, [r3, #4]
+ 287 001e 9A60     		str	r2, [r3, #8]
+ 288 0020 DA60     		str	r2, [r3, #12]
+ 289 0022 1A61     		str	r2, [r3, #16]
+ 290              	.LBB7:
+  66:Core/Src/main.c **** 
+  67:Core/Src/main.c ****   __HAL_RCC_PWR_CLK_ENABLE();
+ 291              		.loc 1 67 3
+ 292 0024 0023     		movs	r3, #0
+ 293 0026 BB60     		str	r3, [r7, #8]
+ 294 0028 224B     		ldr	r3, .L18
+ 295 002a 1B6C     		ldr	r3, [r3, #64]
+ 296 002c 214A     		ldr	r2, .L18
+ 297 002e 43F08053 		orr	r3, r3, #268435456
+ 298 0032 1364     		str	r3, [r2, #64]
+ 299 0034 1F4B     		ldr	r3, .L18
+ 300 0036 1B6C     		ldr	r3, [r3, #64]
+ 301 0038 03F08053 		and	r3, r3, #268435456
+ 302 003c BB60     		str	r3, [r7, #8]
+ 303 003e BB68     		ldr	r3, [r7, #8]
+ 304              	.LBE7:
+ 305              	.LBB8:
+  68:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+ 306              		.loc 1 68 3
+ 307 0040 0023     		movs	r3, #0
+ 308 0042 7B60     		str	r3, [r7, #4]
+ 309 0044 1C4B     		ldr	r3, .L18+4
+ 310 0046 1B68     		ldr	r3, [r3]
+ 311 0048 1B4A     		ldr	r2, .L18+4
+ 312 004a 43F44043 		orr	r3, r3, #49152
+ 313 004e 1360     		str	r3, [r2]
+ 314 0050 194B     		ldr	r3, .L18+4
+ 315 0052 1B68     		ldr	r3, [r3]
+ 316 0054 03F44043 		and	r3, r3, #49152
+ 317 0058 7B60     		str	r3, [r7, #4]
+ 318 005a 7B68     		ldr	r3, [r7, #4]
+ 319              	.LBE8:
+  69:Core/Src/main.c **** 
+  70:Core/Src/main.c ****   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+ 320              		.loc 1 70 36
+ 321 005c 0223     		movs	r3, #2
+ 322 005e 3B62     		str	r3, [r7, #32]
+  71:Core/Src/main.c ****   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+ 323              		.loc 1 71 30
+ 324 0060 0123     		movs	r3, #1
+ 325 0062 FB62     		str	r3, [r7, #44]
+  72:Core/Src/main.c ****   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+ 326              		.loc 1 72 41
+ 327 0064 1023     		movs	r3, #16
+ 328 0066 3B63     		str	r3, [r7, #48]
+  73:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+ 329              		.loc 1 73 34
+ 330 0068 0023     		movs	r3, #0
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 8
+
+
+ 331 006a BB63     		str	r3, [r7, #56]
+  74:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 332              		.loc 1 74 7
+ 333 006c 07F12003 		add	r3, r7, #32
+ 334 0070 1846     		mov	r0, r3
+ 335 0072 FFF7FEFF 		bl	HAL_RCC_OscConfig
+ 336 0076 0346     		mov	r3, r0
+ 337              		.loc 1 74 6
+ 338 0078 002B     		cmp	r3, #0
+ 339 007a 01D0     		beq	.L15
+  75:Core/Src/main.c ****   {
+  76:Core/Src/main.c ****     Error_Handler();
+ 340              		.loc 1 76 5
+ 341 007c FFF7FEFF 		bl	Error_Handler
+ 342              	.L15:
+  77:Core/Src/main.c ****   }
+  78:Core/Src/main.c **** 
+  79:Core/Src/main.c ****   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+ 343              		.loc 1 79 31
+ 344 0080 0F23     		movs	r3, #15
+ 345 0082 FB60     		str	r3, [r7, #12]
+  80:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  81:Core/Src/main.c ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+ 346              		.loc 1 81 34
+ 347 0084 0023     		movs	r3, #0
+ 348 0086 3B61     		str	r3, [r7, #16]
+  82:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 349              		.loc 1 82 35
+ 350 0088 0023     		movs	r3, #0
+ 351 008a 7B61     		str	r3, [r7, #20]
+  83:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 352              		.loc 1 83 36
+ 353 008c 0023     		movs	r3, #0
+ 354 008e BB61     		str	r3, [r7, #24]
+  84:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 355              		.loc 1 84 36
+ 356 0090 0023     		movs	r3, #0
+ 357 0092 FB61     		str	r3, [r7, #28]
+  85:Core/Src/main.c **** 
+  86:Core/Src/main.c ****   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+ 358              		.loc 1 86 7
+ 359 0094 07F10C03 		add	r3, r7, #12
+ 360 0098 0021     		movs	r1, #0
+ 361 009a 1846     		mov	r0, r3
+ 362 009c FFF7FEFF 		bl	HAL_RCC_ClockConfig
+ 363 00a0 0346     		mov	r3, r0
+ 364              		.loc 1 86 6
+ 365 00a2 002B     		cmp	r3, #0
+ 366 00a4 01D0     		beq	.L17
+  87:Core/Src/main.c ****   {
+  88:Core/Src/main.c ****     Error_Handler();
+ 367              		.loc 1 88 5
+ 368 00a6 FFF7FEFF 		bl	Error_Handler
+ 369              	.L17:
+  89:Core/Src/main.c ****   }
+  90:Core/Src/main.c **** }
+ 370              		.loc 1 90 1
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 9
+
+
+ 371 00aa 00BF     		nop
+ 372 00ac 5037     		adds	r7, r7, #80
+ 373              	.LCFI6:
+ 374              		.cfi_def_cfa_offset 8
+ 375 00ae BD46     		mov	sp, r7
+ 376              	.LCFI7:
+ 377              		.cfi_def_cfa_register 13
+ 378              		@ sp needed
+ 379 00b0 80BD     		pop	{r7, pc}
+ 380              	.L19:
+ 381 00b2 00BF     		.align	2
+ 382              	.L18:
+ 383 00b4 00380240 		.word	1073887232
+ 384 00b8 00700040 		.word	1073770496
+ 385              		.cfi_endproc
+ 386              	.LFE131:
+ 388              		.section	.text.MX_TIM2_Init,"ax",%progbits
+ 389              		.align	1
+ 390              		.syntax unified
+ 391              		.thumb
+ 392              		.thumb_func
+ 394              	MX_TIM2_Init:
+ 395              	.LFB132:
+  91:Core/Src/main.c **** 
+  92:Core/Src/main.c **** 
+  93:Core/Src/main.c **** static void MX_TIM2_Init(void)
+  94:Core/Src/main.c **** {
+ 396              		.loc 1 94 1
+ 397              		.cfi_startproc
+ 398              		@ args = 0, pretend = 0, frame = 40
+ 399              		@ frame_needed = 1, uses_anonymous_args = 0
+ 400 0000 80B5     		push	{r7, lr}
+ 401              	.LCFI8:
+ 402              		.cfi_def_cfa_offset 8
+ 403              		.cfi_offset 7, -8
+ 404              		.cfi_offset 14, -4
+ 405 0002 8AB0     		sub	sp, sp, #40
+ 406              	.LCFI9:
+ 407              		.cfi_def_cfa_offset 48
+ 408 0004 00AF     		add	r7, sp, #0
+ 409              	.LCFI10:
+ 410              		.cfi_def_cfa_register 7
+  95:Core/Src/main.c ****   TIM_MasterConfigTypeDef sMasterConfig = {0};
+ 411              		.loc 1 95 27
+ 412 0006 07F12003 		add	r3, r7, #32
+ 413 000a 0022     		movs	r2, #0
+ 414 000c 1A60     		str	r2, [r3]
+ 415 000e 5A60     		str	r2, [r3, #4]
+  96:Core/Src/main.c ****   TIM_OC_InitTypeDef sConfigOC = {0};
+ 416              		.loc 1 96 22
+ 417 0010 3B1D     		adds	r3, r7, #4
+ 418 0012 0022     		movs	r2, #0
+ 419 0014 1A60     		str	r2, [r3]
+ 420 0016 5A60     		str	r2, [r3, #4]
+ 421 0018 9A60     		str	r2, [r3, #8]
+ 422 001a DA60     		str	r2, [r3, #12]
+ 423 001c 1A61     		str	r2, [r3, #16]
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 10
+
+
+ 424 001e 5A61     		str	r2, [r3, #20]
+ 425 0020 9A61     		str	r2, [r3, #24]
+  97:Core/Src/main.c **** 
+  98:Core/Src/main.c ****   htim2.Instance = TIM2;
+ 426              		.loc 1 98 18
+ 427 0022 274B     		ldr	r3, .L25
+ 428 0024 4FF08042 		mov	r2, #1073741824
+ 429 0028 1A60     		str	r2, [r3]
+  99:Core/Src/main.c ****   htim2.Init.Prescaler = 16; //former 0
+ 430              		.loc 1 99 24
+ 431 002a 254B     		ldr	r3, .L25
+ 432 002c 1022     		movs	r2, #16
+ 433 002e 5A60     		str	r2, [r3, #4]
+ 100:Core/Src/main.c ****   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+ 434              		.loc 1 100 26
+ 435 0030 234B     		ldr	r3, .L25
+ 436 0032 0022     		movs	r2, #0
+ 437 0034 9A60     		str	r2, [r3, #8]
+ 101:Core/Src/main.c ****   htim2.Init.Period = 54; //former 4939 (16MHz / 17k) - 1
+ 438              		.loc 1 101 21
+ 439 0036 224B     		ldr	r3, .L25
+ 440 0038 3622     		movs	r2, #54
+ 441 003a DA60     		str	r2, [r3, #12]
+ 102:Core/Src/main.c ****   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+ 442              		.loc 1 102 28
+ 443 003c 204B     		ldr	r3, .L25
+ 444 003e 0022     		movs	r2, #0
+ 445 0040 1A61     		str	r2, [r3, #16]
+ 103:Core/Src/main.c ****   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+ 446              		.loc 1 103 32
+ 447 0042 1F4B     		ldr	r3, .L25
+ 448 0044 0022     		movs	r2, #0
+ 449 0046 9A61     		str	r2, [r3, #24]
+ 104:Core/Src/main.c ****   if (HAL_TIM_PWM_Init(&htim2) != HAL_OK)
+ 450              		.loc 1 104 7
+ 451 0048 1D48     		ldr	r0, .L25
+ 452 004a FFF7FEFF 		bl	HAL_TIM_PWM_Init
+ 453 004e 0346     		mov	r3, r0
+ 454              		.loc 1 104 6
+ 455 0050 002B     		cmp	r3, #0
+ 456 0052 01D0     		beq	.L21
+ 105:Core/Src/main.c ****   {
+ 106:Core/Src/main.c ****     Error_Handler();
+ 457              		.loc 1 106 5
+ 458 0054 FFF7FEFF 		bl	Error_Handler
+ 459              	.L21:
+ 107:Core/Src/main.c ****   }
+ 108:Core/Src/main.c ****   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+ 460              		.loc 1 108 37
+ 461 0058 0023     		movs	r3, #0
+ 462 005a 3B62     		str	r3, [r7, #32]
+ 109:Core/Src/main.c ****   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+ 463              		.loc 1 109 33
+ 464 005c 0023     		movs	r3, #0
+ 465 005e 7B62     		str	r3, [r7, #36]
+ 110:Core/Src/main.c ****   if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+ 466              		.loc 1 110 7
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 11
+
+
+ 467 0060 07F12003 		add	r3, r7, #32
+ 468 0064 1946     		mov	r1, r3
+ 469 0066 1648     		ldr	r0, .L25
+ 470 0068 FFF7FEFF 		bl	HAL_TIMEx_MasterConfigSynchronization
+ 471 006c 0346     		mov	r3, r0
+ 472              		.loc 1 110 6
+ 473 006e 002B     		cmp	r3, #0
+ 474 0070 01D0     		beq	.L22
+ 111:Core/Src/main.c ****   {
+ 112:Core/Src/main.c ****     Error_Handler();
+ 475              		.loc 1 112 5
+ 476 0072 FFF7FEFF 		bl	Error_Handler
+ 477              	.L22:
+ 113:Core/Src/main.c ****   }
+ 114:Core/Src/main.c ****   sConfigOC.OCMode = TIM_OCMODE_PWM1;
+ 478              		.loc 1 114 20
+ 479 0076 6023     		movs	r3, #96
+ 480 0078 7B60     		str	r3, [r7, #4]
+ 115:Core/Src/main.c ****   sConfigOC.Pulse = 0;
+ 481              		.loc 1 115 19
+ 482 007a 0023     		movs	r3, #0
+ 483 007c BB60     		str	r3, [r7, #8]
+ 116:Core/Src/main.c ****   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+ 484              		.loc 1 116 24
+ 485 007e 0023     		movs	r3, #0
+ 486 0080 FB60     		str	r3, [r7, #12]
+ 117:Core/Src/main.c ****   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+ 487              		.loc 1 117 24
+ 488 0082 0023     		movs	r3, #0
+ 489 0084 7B61     		str	r3, [r7, #20]
+ 118:Core/Src/main.c ****   if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+ 490              		.loc 1 118 7
+ 491 0086 3B1D     		adds	r3, r7, #4
+ 492 0088 0022     		movs	r2, #0
+ 493 008a 1946     		mov	r1, r3
+ 494 008c 0C48     		ldr	r0, .L25
+ 495 008e FFF7FEFF 		bl	HAL_TIM_PWM_ConfigChannel
+ 496 0092 0346     		mov	r3, r0
+ 497              		.loc 1 118 6
+ 498 0094 002B     		cmp	r3, #0
+ 499 0096 01D0     		beq	.L23
+ 119:Core/Src/main.c ****   {
+ 120:Core/Src/main.c ****     Error_Handler();
+ 500              		.loc 1 120 5
+ 501 0098 FFF7FEFF 		bl	Error_Handler
+ 502              	.L23:
+ 121:Core/Src/main.c ****   }
+ 122:Core/Src/main.c ****   if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
+ 503              		.loc 1 122 7
+ 504 009c 3B1D     		adds	r3, r7, #4
+ 505 009e 0422     		movs	r2, #4
+ 506 00a0 1946     		mov	r1, r3
+ 507 00a2 0748     		ldr	r0, .L25
+ 508 00a4 FFF7FEFF 		bl	HAL_TIM_PWM_ConfigChannel
+ 509 00a8 0346     		mov	r3, r0
+ 510              		.loc 1 122 6
+ 511 00aa 002B     		cmp	r3, #0
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 12
+
+
+ 512 00ac 01D0     		beq	.L24
+ 123:Core/Src/main.c ****   {
+ 124:Core/Src/main.c ****     Error_Handler();
+ 513              		.loc 1 124 5
+ 514 00ae FFF7FEFF 		bl	Error_Handler
+ 515              	.L24:
+ 125:Core/Src/main.c ****   }
+ 126:Core/Src/main.c ****   HAL_TIM_MspPostInit(&htim2);
+ 516              		.loc 1 126 3
+ 517 00b2 0348     		ldr	r0, .L25
+ 518 00b4 FFF7FEFF 		bl	HAL_TIM_MspPostInit
+ 127:Core/Src/main.c **** 
+ 128:Core/Src/main.c **** }
+ 519              		.loc 1 128 1
+ 520 00b8 00BF     		nop
+ 521 00ba 2837     		adds	r7, r7, #40
+ 522              	.LCFI11:
+ 523              		.cfi_def_cfa_offset 8
+ 524 00bc BD46     		mov	sp, r7
+ 525              	.LCFI12:
+ 526              		.cfi_def_cfa_register 13
+ 527              		@ sp needed
+ 528 00be 80BD     		pop	{r7, pc}
+ 529              	.L26:
+ 530              		.align	2
+ 531              	.L25:
+ 532 00c0 00000000 		.word	htim2
+ 533              		.cfi_endproc
+ 534              	.LFE132:
+ 536              		.section	.text.MX_GPIO_Init,"ax",%progbits
+ 537              		.align	1
+ 538              		.syntax unified
+ 539              		.thumb
+ 540              		.thumb_func
+ 542              	MX_GPIO_Init:
+ 543              	.LFB133:
+ 129:Core/Src/main.c **** 
+ 130:Core/Src/main.c **** static void MX_GPIO_Init(void)
+ 131:Core/Src/main.c **** {
+ 544              		.loc 1 131 1
+ 545              		.cfi_startproc
+ 546              		@ args = 0, pretend = 0, frame = 32
+ 547              		@ frame_needed = 1, uses_anonymous_args = 0
+ 548 0000 80B5     		push	{r7, lr}
+ 549              	.LCFI13:
+ 550              		.cfi_def_cfa_offset 8
+ 551              		.cfi_offset 7, -8
+ 552              		.cfi_offset 14, -4
+ 553 0002 88B0     		sub	sp, sp, #32
+ 554              	.LCFI14:
+ 555              		.cfi_def_cfa_offset 40
+ 556 0004 00AF     		add	r7, sp, #0
+ 557              	.LCFI15:
+ 558              		.cfi_def_cfa_register 7
+ 132:Core/Src/main.c ****   GPIO_InitTypeDef GPIO_InitStruct = {0};
+ 559              		.loc 1 132 20
+ 560 0006 07F10C03 		add	r3, r7, #12
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 13
+
+
+ 561 000a 0022     		movs	r2, #0
+ 562 000c 1A60     		str	r2, [r3]
+ 563 000e 5A60     		str	r2, [r3, #4]
+ 564 0010 9A60     		str	r2, [r3, #8]
+ 565 0012 DA60     		str	r2, [r3, #12]
+ 566 0014 1A61     		str	r2, [r3, #16]
+ 567              	.LBB9:
+ 133:Core/Src/main.c ****   __HAL_RCC_GPIOA_CLK_ENABLE();
+ 568              		.loc 1 133 3
+ 569 0016 0023     		movs	r3, #0
+ 570 0018 BB60     		str	r3, [r7, #8]
+ 571 001a 154B     		ldr	r3, .L28
+ 572 001c 1B6B     		ldr	r3, [r3, #48]
+ 573 001e 144A     		ldr	r2, .L28
+ 574 0020 43F00103 		orr	r3, r3, #1
+ 575 0024 1363     		str	r3, [r2, #48]
+ 576 0026 124B     		ldr	r3, .L28
+ 577 0028 1B6B     		ldr	r3, [r3, #48]
+ 578 002a 03F00103 		and	r3, r3, #1
+ 579 002e BB60     		str	r3, [r7, #8]
+ 580 0030 BB68     		ldr	r3, [r7, #8]
+ 581              	.LBE9:
+ 582              	.LBB10:
+ 134:Core/Src/main.c ****   __HAL_RCC_GPIOB_CLK_ENABLE();
+ 583              		.loc 1 134 3
+ 584 0032 0023     		movs	r3, #0
+ 585 0034 7B60     		str	r3, [r7, #4]
+ 586 0036 0E4B     		ldr	r3, .L28
+ 587 0038 1B6B     		ldr	r3, [r3, #48]
+ 588 003a 0D4A     		ldr	r2, .L28
+ 589 003c 43F00203 		orr	r3, r3, #2
+ 590 0040 1363     		str	r3, [r2, #48]
+ 591 0042 0B4B     		ldr	r3, .L28
+ 592 0044 1B6B     		ldr	r3, [r3, #48]
+ 593 0046 03F00203 		and	r3, r3, #2
+ 594 004a 7B60     		str	r3, [r7, #4]
+ 595 004c 7B68     		ldr	r3, [r7, #4]
+ 596              	.LBE10:
+ 135:Core/Src/main.c **** 
+ 136:Core/Src/main.c ****   GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13;
+ 597              		.loc 1 136 23
+ 598 004e 4FF44053 		mov	r3, #12288
+ 599 0052 FB60     		str	r3, [r7, #12]
+ 137:Core/Src/main.c ****   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+ 600              		.loc 1 137 24
+ 601 0054 0023     		movs	r3, #0
+ 602 0056 3B61     		str	r3, [r7, #16]
+ 138:Core/Src/main.c ****   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+ 603              		.loc 1 138 24
+ 604 0058 0223     		movs	r3, #2
+ 605 005a 7B61     		str	r3, [r7, #20]
+ 139:Core/Src/main.c ****   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 606              		.loc 1 139 3
+ 607 005c 07F10C03 		add	r3, r7, #12
+ 608 0060 1946     		mov	r1, r3
+ 609 0062 0448     		ldr	r0, .L28+4
+ 610 0064 FFF7FEFF 		bl	HAL_GPIO_Init
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 14
+
+
+ 140:Core/Src/main.c **** }
+ 611              		.loc 1 140 1
+ 612 0068 00BF     		nop
+ 613 006a 2037     		adds	r7, r7, #32
+ 614              	.LCFI16:
+ 615              		.cfi_def_cfa_offset 8
+ 616 006c BD46     		mov	sp, r7
+ 617              	.LCFI17:
+ 618              		.cfi_def_cfa_register 13
+ 619              		@ sp needed
+ 620 006e 80BD     		pop	{r7, pc}
+ 621              	.L29:
+ 622              		.align	2
+ 623              	.L28:
+ 624 0070 00380240 		.word	1073887232
+ 625 0074 00040240 		.word	1073873920
+ 626              		.cfi_endproc
+ 627              	.LFE133:
+ 629              		.section	.text.Error_Handler,"ax",%progbits
+ 630              		.align	1
+ 631              		.global	Error_Handler
+ 632              		.syntax unified
+ 633              		.thumb
+ 634              		.thumb_func
+ 636              	Error_Handler:
+ 637              	.LFB134:
+ 141:Core/Src/main.c **** 
+ 142:Core/Src/main.c **** void Error_Handler(void)
+ 143:Core/Src/main.c **** {
+ 638              		.loc 1 143 1
+ 639              		.cfi_startproc
+ 640              		@ args = 0, pretend = 0, frame = 0
+ 641              		@ frame_needed = 1, uses_anonymous_args = 0
+ 642              		@ link register save eliminated.
+ 643 0000 80B4     		push	{r7}
+ 644              	.LCFI18:
+ 645              		.cfi_def_cfa_offset 4
+ 646              		.cfi_offset 7, -4
+ 647 0002 00AF     		add	r7, sp, #0
+ 648              	.LCFI19:
+ 649              		.cfi_def_cfa_register 7
+ 650              	.LBB11:
+ 651              	.LBB12:
+ 652              		.file 2 "Drivers/CMSIS/Include/cmsis_gcc.h"
+   1:Drivers/CMSIS/Include/cmsis_gcc.h **** /**************************************************************************//**
+   2:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @file     cmsis_gcc.h
+   3:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
+   4:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @version  V5.0.4
+   5:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @date     09. April 2018
+   6:Drivers/CMSIS/Include/cmsis_gcc.h ****  ******************************************************************************/
+   7:Drivers/CMSIS/Include/cmsis_gcc.h **** /*
+   8:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Copyright (c) 2009-2018 Arm Limited. All rights reserved.
+   9:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
+  10:Drivers/CMSIS/Include/cmsis_gcc.h ****  * SPDX-License-Identifier: Apache-2.0
+  11:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
+  12:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Licensed under the Apache License, Version 2.0 (the License); you may
+  13:Drivers/CMSIS/Include/cmsis_gcc.h ****  * not use this file except in compliance with the License.
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 15
+
+
+  14:Drivers/CMSIS/Include/cmsis_gcc.h ****  * You may obtain a copy of the License at
+  15:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
+  16:Drivers/CMSIS/Include/cmsis_gcc.h ****  * www.apache.org/licenses/LICENSE-2.0
+  17:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
+  18:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
+  19:Drivers/CMSIS/Include/cmsis_gcc.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+  20:Drivers/CMSIS/Include/cmsis_gcc.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  21:Drivers/CMSIS/Include/cmsis_gcc.h ****  * See the License for the specific language governing permissions and
+  22:Drivers/CMSIS/Include/cmsis_gcc.h ****  * limitations under the License.
+  23:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+  24:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  25:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef __CMSIS_GCC_H
+  26:Drivers/CMSIS/Include/cmsis_gcc.h **** #define __CMSIS_GCC_H
+  27:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  28:Drivers/CMSIS/Include/cmsis_gcc.h **** /* ignore some GCC warnings */
+  29:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic push
+  30:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
+  31:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
+  32:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
+  33:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  34:Drivers/CMSIS/Include/cmsis_gcc.h **** /* Fallback for __has_builtin */
+  35:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef __has_builtin
+  36:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __has_builtin(x) (0)
+  37:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  38:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  39:Drivers/CMSIS/Include/cmsis_gcc.h **** /* CMSIS compiler specific defines */
+  40:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __ASM
+  41:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __ASM                                  __asm
+  42:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  43:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __INLINE
+  44:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __INLINE                               inline
+  45:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  46:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __STATIC_INLINE
+  47:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __STATIC_INLINE                        static inline
+  48:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  49:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __STATIC_FORCEINLINE                 
+  50:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __STATIC_FORCEINLINE                   __attribute__((always_inline)) static inline
+  51:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif                                           
+  52:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __NO_RETURN
+  53:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __NO_RETURN                            __attribute__((__noreturn__))
+  54:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  55:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __USED
+  56:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __USED                                 __attribute__((used))
+  57:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  58:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __WEAK
+  59:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __WEAK                                 __attribute__((weak))
+  60:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  61:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __PACKED
+  62:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __PACKED                               __attribute__((packed, aligned(1)))
+  63:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  64:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __PACKED_STRUCT
+  65:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __PACKED_STRUCT                        struct __attribute__((packed, aligned(1)))
+  66:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  67:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __PACKED_UNION
+  68:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __PACKED_UNION                         union __attribute__((packed, aligned(1)))
+  69:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  70:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32        /* deprecated */
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 16
+
+
+  71:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  72:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  73:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  74:Drivers/CMSIS/Include/cmsis_gcc.h ****   struct __attribute__((packed)) T_UINT32 { uint32_t v; };
+  75:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  76:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
+  77:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  78:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
+  79:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  80:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  81:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  82:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_WRITE { uint16_t v; };
+  83:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  84:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void *)(addr))-
+  85:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  86:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_READ
+  87:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  88:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  89:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  90:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_READ { uint16_t v; };
+  91:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  92:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(add
+  93:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  94:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_WRITE
+  95:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  96:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  97:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  98:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
+  99:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 100:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))-
+ 101:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 102:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
+ 103:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+ 104:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+ 105:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+ 106:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
+ 107:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 108:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(add
+ 109:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 110:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __ALIGNED
+ 111:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __ALIGNED(x)                           __attribute__((aligned(x)))
+ 112:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 113:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __RESTRICT
+ 114:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __RESTRICT                             __restrict
+ 115:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 116:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 117:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 118:Drivers/CMSIS/Include/cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
+ 119:Drivers/CMSIS/Include/cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+ 120:Drivers/CMSIS/Include/cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
+ 121:Drivers/CMSIS/Include/cmsis_gcc.h ****   @{
+ 122:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 123:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 124:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 125:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
+ 126:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
+ 127:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 17
+
+
+ 128:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 129:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_irq(void)
+ 130:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 131:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
+ 132:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 133:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 134:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 135:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 136:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
+ 137:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
+ 138:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 139:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 140:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
+ 141:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 142:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
+ 653              		.loc 2 142 3
+ 654              		.syntax unified
+ 655              	@ 142 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 656 0004 72B6     		cpsid i
+ 657              	@ 0 "" 2
+ 143:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 658              		.loc 2 143 1
+ 659              		.thumb
+ 660              		.syntax unified
+ 661 0006 00BF     		nop
+ 662              	.L31:
+ 663              	.LBE12:
+ 664              	.LBE11:
+ 144:Core/Src/main.c ****   __disable_irq();
+ 145:Core/Src/main.c ****   while (1)
+ 665              		.loc 1 145 9 discriminator 1
+ 666 0008 FEE7     		b	.L31
+ 667              		.cfi_endproc
+ 668              	.LFE134:
+ 670              		.text
+ 671              	.Letext0:
+ 672              		.file 3 "c:\\dev\\micro\\tools\\arm-gnu-toolchain-11.3.rel1-mingw-w64-i686-arm-none-eabi\\arm-none
+ 673              		.file 4 "c:\\dev\\micro\\tools\\arm-gnu-toolchain-11.3.rel1-mingw-w64-i686-arm-none-eabi\\arm-none
+ 674              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f411xe.h"
+ 675              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 676              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 677              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h"
+ 678              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h"
+ 679              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 680              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 681              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 682              		.file 13 "Core/Inc/main.h"
+ 683              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h"
+ 684              		.file 15 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ARM GAS  C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s 			page 18
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:24     .bss.channel1_duty_cycle:00000000 channel1_duty_cycle
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:21     .bss.channel1_duty_cycle:00000000 $d
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:31     .data.channel2_duty_cycle:00000000 channel2_duty_cycle
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:28     .data.channel2_duty_cycle:00000000 $d
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:38     .bss.htim2:00000000 htim2
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:35     .bss.htim2:00000000 $d
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:41     .text.main:00000000 $t
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:47     .text.main:00000000 main
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:259    .text.SystemClock_Config:00000000 SystemClock_Config
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:542    .text.MX_GPIO_Init:00000000 MX_GPIO_Init
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:394    .text.MX_TIM2_Init:00000000 MX_TIM2_Init
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:241    .text.main:00000184 $d
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:253    .text.SystemClock_Config:00000000 $t
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:636    .text.Error_Handler:00000000 Error_Handler
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:383    .text.SystemClock_Config:000000b4 $d
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:389    .text.MX_TIM2_Init:00000000 $t
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:532    .text.MX_TIM2_Init:000000c0 $d
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:537    .text.MX_GPIO_Init:00000000 $t
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:624    .text.MX_GPIO_Init:00000070 $d
+C:\Users\stryk\AppData\Local\Temp\ccQ8QnXF.s:630    .text.Error_Handler:00000000 $t
+
+UNDEFINED SYMBOLS
+HAL_Init
+HAL_TIM_PWM_Start
+HAL_GetTick
+button_release
+HAL_Delay
+memset
+HAL_RCC_OscConfig
+HAL_RCC_ClockConfig
+HAL_TIM_PWM_Init
+HAL_TIMEx_MasterConfigSynchronization
+HAL_TIM_PWM_ConfigChannel
+HAL_TIM_MspPostInit
+HAL_GPIO_Init
