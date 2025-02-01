@@ -38,7 +38,7 @@ int main(void)
     }
     __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, (uint32_t)((channel1_duty_cycle / 100.0f) * __HAL_TIM_GET_AUTORELOAD(&htim2)));
 
-    // Botões de controle do canal 2
+    // Botões de controle do canal_2
      if (button_release(GPIOB, GPIO_PIN_12,SET))
     {
             channel2_duty_cycle += 12.5f;
