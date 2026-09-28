@@ -36,7 +36,7 @@ int main(void)
     {
         start_time = HAL_GetTick(); // Reset time after 6 seconds
     }
-    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, (uint32_t)((channel1_duty_cycle / 100.0f) * __HAL_TIM_GET_AUTORELOAD(&htim2)));
+    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, (uint32_t)((channel1_duty_cycle / 100.0f) * (__HAL_TIM_GET_AUTORELOAD(&htim2) + 1U)));
 
     // Botões de controle do canal_2
      if (button_release(GPIOB, GPIO_PIN_12,SET))
@@ -53,7 +53,7 @@ int main(void)
                 channel2_duty_cycle = 0.0f; // Limit to 0%
     }
 
-    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, (uint32_t)((channel2_duty_cycle / 100.0f) * __HAL_TIM_GET_AUTORELOAD(&htim2)));
+    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, (uint32_t)((channel2_duty_cycle / 100.0f) * (__HAL_TIM_GET_AUTORELOAD(&htim2) + 1U)));
 
     HAL_Delay(1);
 }
